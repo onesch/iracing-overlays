@@ -8,7 +8,6 @@
 
 - Real-time telemetry display (speed, throttle, brake, etc.).
 - Automatically connects to iRacing when running.
-- Shows current connection status.
 - Startup overlay menu with the option to hide.
 - Transparent always-on-screen overlay.
 - Clean MVC structure: View / Controller / Model.
