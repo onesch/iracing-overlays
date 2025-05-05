@@ -30,6 +30,7 @@ git clone https://github.com/onesch/iracing-overlays.git
 cd iracing-overlay
 pip install -r requirements.txt
 ```
+or install in [releases](https://github.com/onesch/iracing-overlays/releases/tag/publish)
 
 ## 🚀 Usage
 ```bash
