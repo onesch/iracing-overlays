@@ -1,6 +1,6 @@
-# iRacing Telemetry Overlay
+# iRacing Overlays
 
-**iRacing Telemetry Overlay** is a Python + PyQt6 graphical application that displays real-time telemetry from iRacing as customizable overlay windows on top of your screen.
+**iRacing Overlays** is a Python + PyQt6 graphical application that displays real-time data from iRacing as customizable overlay windows on top of your screen.
 
 ---
 
@@ -8,7 +8,6 @@
 
 - Real-time telemetry display (speed, throttle, brake, etc.).
 - Automatically connects to iRacing when running.
-- Shows current connection status.
 - Startup overlay menu with the option to hide.
 - Transparent always-on-screen overlay.
 - Clean MVC structure: View / Controller / Model.
