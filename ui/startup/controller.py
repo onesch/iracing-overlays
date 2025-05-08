@@ -1,5 +1,5 @@
 from PyQt6.QtCore import QTimer
-from ui.startup.view import StartupOverlayWiew
+from ui.startup.view import StartupOverlayView
 from ui.telemetry.controller import TelemetryOverlayController
 import irsdk
 from settings.constants import IRACING_CHECK_INTERVAL_MS
@@ -7,49 +7,61 @@ from settings.constants import IRACING_CHECK_INTERVAL_MS
 
 class StartupOverlayController:
     """
-    Контроллер стартового меню, отвечающий за:
-    - отображение стартового окна (меню),
-    - отслеживание подключения к iRacing,
-    - запуск контроллера телеметрии при обнаружении соединения.
+    Controller for the startup overlay. Responsible for:
+    - displaying the startup menu,
+    - monitoring the iRacing connection,
+    - launching the telemetry overlay when iRacing is active.
     """
 
     def __init__(self):
         """
-        Инициализирует контроллер:
-        - запускает стартовое меню (view),
-        - начинает отслеживание подключения к iRacing.
+        Initializes the controller:
+        - creates and displays the startup overlay,
+        - starts watching for an iRacing connection.
         """
         self.ir = irsdk.IRSDK()
         self.controller = None
 
-        self.view = StartupOverlayWiew(self.hide_menu)
+        self.setup_view()
+        self.start_iracing_watch()
+
+
+    def setup_view(self):
+        """
+        Initializes and shows the startup overlay view.
+        """
+        self.view = StartupOverlayView(self.hide_menu)
         self.view.show()
 
-        self.start_iracing_watch()
 
     def hide_menu(self):
         """
-        Обработчик скрытия меню.
-        Вызывается из представления при клике на кнопку "Скрыть меню".
+        Handles the 'hide menu' action.
+        Called when the user clicks the 'Hide Menu' button in the view.
         """
         self.view.hide()
 
+
     def start_iracing_watch(self):
         """
-        Запускает периодическую проверку состояния iRacing.
-        Если iRacing запущен и соединение установлено — создаёт телеметрию.
+        Starts a timer that periodically checks for an active iRacing session.
+        If iRacing is running and connected, the telemetry overlay is launched.
         """
         self.timer = QTimer()
         self.timer.timeout.connect(self.check_iracing)
         self.timer.start(IRACING_CHECK_INTERVAL_MS)
 
+
     def check_iracing(self):
         """
-        Проверка инициализации и соединения с iRacing.
-        При успешном соединении запускает контроллер телеметрии.
+        Periodically checks if iRacing is initialized and connected.
+        If so, creates the telemetry controller and displays its view.
         """
-        self.ir.startup()
+        if not self.ir.is_initialized:
+            self.ir.startup()
+
         if self.ir.is_initialized and self.ir.is_connected:
             if self.controller is None:
                 self.controller = TelemetryOverlayController(self.ir)
                 self.controller.view.show()
+                self.timer.stop()

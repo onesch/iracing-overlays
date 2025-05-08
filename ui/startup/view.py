@@ -2,16 +2,16 @@ from PyQt6.QtWidgets import QWidget, QPushButton, QVBoxLayout
 from PyQt6.QtCore import Qt
 
 
-class StartupOverlayWiew(QWidget):
+class StartupOverlayView(QWidget):
     """
-    Представление стартового меню, содержащее кнопку "Скрыть меню".
+    View for the startup overlay containing a 'Hide Menu' button.
 
-    При нажатии кнопки вызывает переданный колбэк (on_close_menu_callback).
+    When the button is clicked, it calls the provided callback (on_close_menu_callback).
     """
 
     def __init__(self, on_close_menu_callback):
         """
-        :param on_close_menu_callback: Функция, вызываемая при скрытии меню.
+        :param on_close_menu_callback: Function to call when the menu is hidden.
         """
         super().__init__()
         self.on_close_menu_callback = on_close_menu_callback
@@ -31,7 +31,7 @@ class StartupOverlayWiew(QWidget):
 
     def hide_menu(self):
         """
-        Скрывает меню и вызывает переданный колбэк в контроллере.
+        Hides the menu and calls the provided callback in the controller.
         """
         self.hide()
         self.on_close_menu_callback()

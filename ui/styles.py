@@ -28,9 +28,9 @@ STYLE_BRAKE_BAR = f"""
         background-color: {rgb(COLOR_BRAKE)};
     }}
 """
-# style for GRAPH
-GRAPH_WIDTH = 300          # Ширина графика в пикселях
-GRAPH_HEIGHT = 80          # Высота графика в пикселях
-GRAPH_LEFT = 80            # Отступ слева (x-координата начала графика)
-GRAPH_TOP = 40             # Отступ сверху (y-координата начала графика)
-GRAPH_LINE_WIDTH = 3       # Толщина линий на графике
+# Style for GRAPH
+GRAPH_WIDTH = 300          # Width of the graph in pixels
+GRAPH_HEIGHT = 80          # Height of the graph in pixels
+GRAPH_LEFT = 80            # Left margin (x-coordinate of the graph start)
+GRAPH_TOP = 40             # Top margin (y-coordinate of the graph start)
+GRAPH_LINE_WIDTH = 3       # Line thickness in the graph

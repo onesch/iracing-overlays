@@ -10,6 +10,7 @@ class TelemetryUpdater:
         self.history = []
         self.max_history = 100
 
+
     def update_telemetry(self):
         if self.ir.is_initialized and self.ir.is_connected:
             is_on_track = self.ir['IsOnTrack']
@@ -34,12 +35,23 @@ class TelemetryUpdater:
             self.view.brake_bar.setValue(int(brake))
             self.view.update()
 
+
     def save_window_position(self):
-        """Сохранение позиции окна в файл"""
         pos = self.controller.view.pos()
         data = {"x": pos.x(), "y": pos.y()}
         with open(SETTINGS_FILE, "w") as f:
             json.dump(data, f)
+
+
+    def load_window_position(self):
+        try:
+            with open(SETTINGS_FILE, "r") as f:
+                data = json.load(f)
+                x, y = data.get("x", 100), data.get("y", 100)
+                self.view.move(x, y)
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+
 
     def get_history(self):
         return self.history
